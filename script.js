@@ -86,6 +86,10 @@ document.querySelector('#order-bars').addEventListener('click', () => {
   // Hint: priceNumbers = priceOrder.map((price) => {
   //   return ???;   (look the price up in priceCounts)
   // });
+  priceLabels = priceOrder;
+  priceNumbers = priceOrder.map((price) => {
+    return priceCounts[price];
+  });
 
   showShape('#order-output', `labels  = ${toText(priceLabels)}\nnumbers = ${toText(priceNumbers)}`);
 });
