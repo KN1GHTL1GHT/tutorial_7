@@ -111,6 +111,25 @@ document.querySelector('#draw-scatter').addEventListener('click', () => {
   //       data: { datasets: [{ label: 'Restaurants', data: points }] }
   //       (a scatter chart has no labels list: each point carries its own x and y)
   // Hint: and write a sentence into #scatter-summary
+  const points = restaurants.map((restaurant) => {
+    return { x: restaurant.priceRange.length, y: restaurant.rating };
+  });
+  showShape('#points-output', `points = ${toText(points)}`);
+
+  drawChart('#scatter-chart', {
+    type: 'scatter',
+    data: { datasets: [{ label: 'Restaurants', data: points }] },
+    options: {
+      plugins: { title: { display: true, text: 'Price vs. rating' } },
+      scales: {
+        x: { title: { display: true, text: 'Price (number of $ signs)' } },
+        y: { title: { display: true, text: 'Rating' } }
+      }
+    }
+  });
+
+  document.querySelector('#scatter-summary').textContent =
+    'All 8 restaurants are rated between 4.0 and 4.8, and the one $$$$ place rates highest, but cheaper places score well too, so price and rating are only loosely linked.';
 });
 
 // ============================================
