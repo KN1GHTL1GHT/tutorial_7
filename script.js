@@ -28,6 +28,11 @@ document.querySelector('#make-lists').addEventListener('click', () => {
   // Hint: count into priceCounts with restaurants.forEach, exactly as in Tutorial 6
   // Hint: priceLabels = Object.keys(priceCounts);    gives ['$$', '$$$', ...]
   // Hint: priceNumbers = Object.values(priceCounts); gives [3, 2, ...]
+  restaurants.forEach((restaurant) => {
+    priceCounts[restaurant.priceRange] = (priceCounts[restaurant.priceRange] || 0) + 1;
+  });
+  priceLabels = Object.keys(priceCounts);
+  priceNumbers = Object.values(priceCounts);
 
   showShape('#lists-output', `labels  = ${toText(priceLabels)}\nnumbers = ${toText(priceNumbers)}`);
   setButton('#draw-bar', true);
@@ -45,23 +50,24 @@ document.querySelector('#draw-bar').addEventListener('click', () => {
   // YOUR CODE HERE
   // Hint: uncomment this, and replace each ??? with the right thing
   //
-  // drawChart('#bar-chart', {
-  //   type: '???',
-  //   data: {
-  //     labels: ???,
-  //     datasets: [{ label: 'Restaurants', data: ??? }]
-  //   },
-  //   options: {
-  //     plugins: { title: { display: true, text: '???' } },
-  //     scales: {
-  //       x: { title: { display: true, text: '???' } },
-  //       y: { title: { display: true, text: '???' }, beginAtZero: true }
-  //     }
-  //   }
-  // });
+  drawChart('#bar-chart', {
+    type: 'bar',
+    data: {
+      labels: priceLabels,
+      datasets: [{ label: 'Restaurants', data: priceNumbers }]
+    },
+    options: {
+      plugins: { title: { display: true, text: 'Restaurants by price range' } },
+      scales: {
+        x: { title: { display: true, text: 'Price range' } },
+        y: { title: { display: true, text: 'Number of restaurants' }, beginAtZero: true }
+      }
+    }
+  });
   //
   // Then write your sentence:
-  // document.querySelector('#bar-summary').textContent = '...';
+  document.querySelector('#bar-summary').textContent =
+    'Of 8 restaurants, $$ is the most common price range with 3, $ and $$$ have 2 each, and only 1 is $$$$.';
 });
 
 // ============================================
