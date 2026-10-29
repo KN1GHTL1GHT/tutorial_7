@@ -114,13 +114,18 @@ document.querySelector('#draw-scatter').addEventListener('click', () => {
   const points = restaurants.map((restaurant) => {
     return { x: restaurant.priceRange.length, y: restaurant.rating };
   });
-  showShape('#points-output', `points = ${toText(points)}`);
+  //showShape('#points-output', `points = ${toText(points)}`);
+  //commented ^^ out because it didn't look good
 
   drawChart('#scatter-chart', {
     type: 'scatter',
     data: { datasets: [{ label: 'Restaurants', data: points }] },
     options: {
-      plugins: { title: { display: true, text: 'Price vs. rating' } },
+      plugins: { 
+        title: { display: true, text: 'Price vs. rating' },
+        legend: { labels: {usePointStyle: true}},
+        //made the legend a circle
+      },
       scales: {
         x: { title: { display: true, text: 'Price (number of $ signs)' } },
         y: { title: { display: true, text: 'Rating' } }
